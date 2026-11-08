@@ -1,6 +1,20 @@
 # Loesje poster archive index
 
-Indexes every poster on https://www.loesje.nl/posters/ into `loesje.db` (SQLite).
+A searchable index of every poster on https://www.loesje.nl/posters/: about
+7,900 posters with their date, sources (bronnen), subjects (onderwerpen), slogan
+and word count. Live at https://loesje-prutser.freepod.app.
+
+The pipeline:
+
+1. `scrape.py` downloads the metadata and images into a local SQLite working
+   database, `loesje.db`, and `images/`.
+2. `ocr.py` reads each poster's text, and word counts are checked by hand where
+   needed (`review.py`, `word_overrides.csv`).
+3. `pgload.py` exports `loesje.db` to Postgres, which the search site
+   (`server.py`) serves from Freepod. The images live in the deployment's S3 bucket.
+
+`loesje.db`, `loesje.sql`, `images/` and `thumbs/` aren't in the repository;
+rebuild them with the scripts below.
 
 ## Stage 1 — metadata + images (`scrape.py`)
 
@@ -27,7 +41,10 @@ Quirks it handles:
   most posters before 2013 were bulk-imported on 2013-11-19. For the three
   GraphQL-only posters, `pub_date` is derived from the `nlYYMM_n` slug.
 
-## Schema
+## Schema of the SQLite working database (`loesje.db`)
+
+The site's Postgres schema is in `schema.sql`. It holds a trimmed-down copy of the
+`posters`, `terms` and `poster_terms` tables, plus the word counts and a search index.
 
 - `posters`: one row per poster. Columns: `id`, `slug`, `title` (the slogan as
   entered in the CMS; `/` marks a line break), `pub_date`, `wp_date`,
