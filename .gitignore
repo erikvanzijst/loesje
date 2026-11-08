@@ -1,0 +1,8 @@
+# Scraped and generated data (rebuild with scrape.py, thumbs.py, ocr.py, pgload.py)
+images/
+thumbs/
+loesje.db
+loesje.sql
+review/
+__pycache__/
+.venv/

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!--HEAD-->
+  <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Franklin:wght@800;900&family=Ubuntu:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="wrap">
+      <a class="brand" href="/">Posterarchief</a>
+      <span class="tagline">Doorzoek alle Loesje-posters</span>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <search role="search">
+      <form id="search-form" class="searchbar" autocomplete="off">
+        <label for="q" class="sr-only">Zoeken</label>
+        <input id="q" name="q" type="search" placeholder="Zoeken naar posters op tekst">
+        <button type="submit" class="btn-submit" aria-label="Zoeken">
+          <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><circle cx="10" cy="10" r="7" fill="none" stroke="currentColor" stroke-width="3"/><path d="M15 15l7 7" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>
+        </button>
+      </form>
+    </search>
+
+    <div class="filters">
+      <div class="filter-item dropdown" data-key="source">
+        <button type="button" class="dropdown-toggle" aria-expanded="false">
+          <span class="title">Bronnen</span><span class="badge" hidden></span><span class="chev" aria-hidden="true"></span>
+        </button>
+        <div class="dropdown-panel" hidden></div>
+      </div>
+      <div class="filter-item dropdown" data-key="subject">
+        <button type="button" class="dropdown-toggle" aria-expanded="false">
+          <span class="title">Onderwerpen</span><span class="badge" hidden></span><span class="chev" aria-hidden="true"></span>
+        </button>
+        <div class="dropdown-panel" hidden></div>
+      </div>
+      <label class="filter-item date"><span>Van</span><input id="from" type="date"></label>
+      <label class="filter-item date"><span>Voor</span><input id="to" type="date"></label>
+      <label class="filter-item words"><span>Woorden</span><input id="words" type="text" inputmode="numeric" placeholder="bv. 3, 5 of 3-6"></label>
+    </div>
+
+    <div class="word-chips" aria-label="Aantal woorden">
+      <span class="word-chips-label">Aantal woorden</span>
+      <div id="word-chips" class="chips"></div>
+    </div>
+
+    <div class="results-head">
+      <h1>Posters</h1>
+      <div class="results-meta">
+        <span id="count" aria-live="polite"></span>
+        <button type="button" id="reset" class="link-btn" hidden>Filters wissen</button>
+        <a id="export" class="link-btn" href="/api/posters.csv" download>Exporteer naar CSV</a>
+        <label class="sort">Sorteer
+          <select id="order"><option value="newest">nieuwste eerst</option><option value="oldest">oudste eerst</option></select>
+        </label>
+      </div>
+    </div>
+  </main>
+
+  <section class="wall" aria-label="Zoekresultaten">
+    <div class="wrap">
+      <ul id="list" class="list"></ul>
+      <p id="empty" class="empty" hidden>Geen posters gevonden. Probeer andere zoekwoorden of minder filters.</p>
+      <div id="sentinel" class="sentinel"></div>
+    </div>
+  </section>
+
+  <dialog id="detail" class="detail">
+    <button type="button" class="close" aria-label="Sluiten">&times;</button>
+    <div class="detail-body"></div>
+  </dialog>
+
+  <footer class="wrap footer">
+    <p id="footnote"></p>
+  </footer>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
