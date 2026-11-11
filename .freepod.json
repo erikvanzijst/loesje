@@ -5,6 +5,9 @@
     "name": "custom-user-app-wzzbz7"
   },
   "user_values": {
-    "hostname": "loesje"
+    "hostname": "loesje",
+    "auth": {
+      "enabled": true
+    }
   }
 }
